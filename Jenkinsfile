@@ -1,9 +1,12 @@
 pipeline {
-    agent { docker { image 'maven:3.3.3' } }
+    agent any
+    triggers {
+        pollSCM('* * * * *')
+    }
     stages {
-        stage('build') {
+        stage("Unit test") {
             steps {
-                sh 'mvn --version'
+                sh "python test_calculator.py"
             }
         }
     }
